@@ -73,16 +73,45 @@ public class ProductService {
         return null;
     }
 
-    // TODO: Method to search products by name
 
+    public List<Product> searchProductsByName(String name) {
+        String lowerCaseName = name.toLowerCase();
+        List<Product> result = new ArrayList<>();
+        for (Product p : products) {
+            if (p.getName().toLowerCase().contains(lowerCaseName)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
 
-    // TODO: Method to filter products by category
+    public List<Product> filterProductsByCategory(String category) {
+        List<Product> result = new ArrayList<>();
+        for (Product p : products) {
+            if (p.getCategory().equalsIgnoreCase(category)) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
 
+    public List<Product> filterProductsByPriceRange(double minPrice, double maxPrice) {
+        List<Product> result = new ArrayList<>();
+        for (Product p : products) {
+            if (p.getPrice() >= minPrice && p.getPrice() <= maxPrice) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
 
-    // TODO: Method to filter products by price range
-
-
-    // TODO: Method to filter products by stock quantity range
-
-    
+    public List<Product> filterProductsByStockQuantity(int minStock, int maxStock) {
+        List<Product> result = new ArrayList<>();
+        for (Product p : products) {
+            if (p.getStockQuantity() >= minStock && p.getStockQuantity() <= maxStock) {
+                result.add(p);
+            }
+        }
+        return result;
+    }
 }

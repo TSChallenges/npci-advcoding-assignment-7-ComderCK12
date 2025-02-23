@@ -59,16 +59,44 @@ public class ProductController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    // TODO: API to search products by name
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProductsByName(@RequestParam String name) {
+        List<Product> result = productService.searchProductsByName(name);
+        if (result.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
+    @GetMapping("/filter/category")
+    public ResponseEntity<List<Product>> filterProductsByCategory(@RequestParam String category) {
+        List<Product> result = productService.filterProductsByCategory(category);
+        if (result.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
-    // TODO: API to filter products by category
+    @GetMapping("/filter/price")
+    public ResponseEntity<List<Product>> filterProductsByPrice(
+            @RequestParam double minPrice,
+            @RequestParam double maxPrice) {
+        List<Product> result = productService.filterProductsByPriceRange(minPrice, maxPrice);
+        if (result.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
-
-    // TODO: API to filter products by price range
-
-
-    // TODO: API to filter products by stock quantity range
-
+    @GetMapping("/filter/stock")
+    public ResponseEntity<List<Product>> filterProductsByStock(
+            @RequestParam int minStock,
+            @RequestParam int maxStock) {
+        List<Product> result = productService.filterProductsByStockQuantity(minStock, maxStock);
+        if (result.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
 }
